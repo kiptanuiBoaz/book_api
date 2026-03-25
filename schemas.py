@@ -3,14 +3,17 @@ from email.mime import audio
 from pydantic import BaseModel
 
 
-class BookCreate(BaseModel()):
+class BookCreate(BaseModel):
     title: str
-    audior: str
+    author: str
     year: int
 
 
-class BookRead(BaseModel()):
+class BookRead(BaseModel):
     id: int
+    title: str
+    author: str
+    year: int
 
     class Config:
         form_attributes = True

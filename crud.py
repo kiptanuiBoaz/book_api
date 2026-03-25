@@ -3,8 +3,6 @@ from sqlalchemy.orm import Session
 
 from schemas import BookCreate
 
-from schemas import BookCreate
-
 
 def create_book(db: Session, book: BookCreate):
     db_book = Book(**book.model_dump())
@@ -30,3 +28,12 @@ def update_book(db: Session, book_id: int, book: BookCreate):
         db.commit()
         db.refresh(db_book)
     return db_book
+
+
+def delete_book(db: Session, book_id: int):
+    db_book = db.query(Book).filter(Book.id == book_id).first()
+    if db_book:
+        db.delete(db_book)
+        db.commit()
+        return True
+    return False
